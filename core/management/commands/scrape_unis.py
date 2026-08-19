@@ -53,7 +53,7 @@ class Command(BaseCommand):
                         count += 1
                         self.stdout.write(self.style.SUCCESS(f'Aded Done: {uni_name}'))
 
-            self.stdout.write(self.style.SUCCESS(f'Seccsefull! Added and withdrawn{count} Germen Collage to the DataBase'))
+            self.stdout.write(self.style.SUCCESS(f'Seccsefull! Added and withdrawn {count} Germen Collage to the DataBase'))
 
         except Exception as e:
             self.stdout.write(self.style.ERROR(f'An Eror doesn\'t exepted {e}'))
