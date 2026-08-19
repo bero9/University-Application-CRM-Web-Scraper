@@ -14,98 +14,366 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('auth', '0012_alter_user_first_name_max_length'),
+        ("auth", "0012_alter_user_first_name_max_length"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Program',
+            name="Program",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255, verbose_name='اسم التخصص')),
-                ('degree_level', models.CharField(choices=[('Bachelor', 'بكالوريوس'), ('Master', 'ماجستير'), ('PhD', 'دكتوراه')], max_length=50, verbose_name='الدرجة العلمية')),
-                ('language', models.CharField(max_length=50, verbose_name='لغة التدريس')),
-                ('tuition_fee', models.DecimalField(blank=True, decimal_places=2, max_digits=10, null=True, verbose_name='الرسوم الدراسية')),
-                ('deadline', models.DateField(blank=True, null=True, verbose_name='موعد التقديم')),
-                ('program_url', models.URLField(max_length=500, verbose_name='رابط تفاصيل البرنامج')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=255, verbose_name="اسم التخصص")),
+                (
+                    "degree_level",
+                    models.CharField(
+                        choices=[
+                            ("Bachelor", "بكالوريوس"),
+                            ("Master", "ماجستير"),
+                            ("PhD", "دكتوراه"),
+                        ],
+                        max_length=50,
+                        verbose_name="الدرجة العلمية",
+                    ),
+                ),
+                (
+                    "language",
+                    models.CharField(max_length=50, verbose_name="لغة التدريس"),
+                ),
+                (
+                    "tuition_fee",
+                    models.DecimalField(
+                        blank=True,
+                        decimal_places=2,
+                        max_digits=10,
+                        null=True,
+                        verbose_name="الرسوم الدراسية",
+                    ),
+                ),
+                (
+                    "deadline",
+                    models.DateField(
+                        blank=True, null=True, verbose_name="موعد التقديم"
+                    ),
+                ),
+                (
+                    "program_url",
+                    models.URLField(
+                        max_length=500, verbose_name="رابط تفاصيل البرنامج"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='University',
+            name="University",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, verbose_name='اسم الجامعة')),
-                ('country', models.CharField(max_length=100, verbose_name='الدولة')),
-                ('ranking', models.IntegerField(blank=True, null=True, verbose_name='التصنيف العالمي')),
-                ('website_url', models.URLField(max_length=500, verbose_name='الرابط الرسمي')),
-                ('scraped_at', models.DateTimeField(auto_now=True, verbose_name='تاريخ آخر تحديث')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255, verbose_name="اسم الجامعة")),
+                ("country", models.CharField(max_length=100, verbose_name="الدولة")),
+                (
+                    "ranking",
+                    models.IntegerField(
+                        blank=True, null=True, verbose_name="التصنيف العالمي"
+                    ),
+                ),
+                (
+                    "website_url",
+                    models.URLField(max_length=500, verbose_name="الرابط الرسمي"),
+                ),
+                (
+                    "scraped_at",
+                    models.DateTimeField(auto_now=True, verbose_name="تاريخ آخر تحديث"),
+                ),
             ],
             options={
-                'verbose_name_plural': 'Universities',
+                "verbose_name_plural": "Universities",
             },
         ),
         migrations.CreateModel(
-            name='User',
+            name="User",
             fields=[
-                ('password', models.CharField(max_length=128, verbose_name='password')),
-                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
-                ('username', models.CharField(error_messages={'unique': 'A user with that username already exists.'}, help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.', max_length=150, unique=True, validators=[django.contrib.auth.validators.UnicodeUsernameValidator()], verbose_name='username')),
-                ('first_name', models.CharField(blank=True, max_length=150, verbose_name='first name')),
-                ('last_name', models.CharField(blank=True, max_length=150, verbose_name='last name')),
-                ('email', models.EmailField(blank=True, max_length=254, verbose_name='email address')),
-                ('is_staff', models.BooleanField(default=False, help_text='Designates whether the user can log into this admin site.', verbose_name='staff status')),
-                ('is_active', models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
-                ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.group', verbose_name='groups')),
-                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.permission', verbose_name='user permissions')),
+                ("password", models.CharField(max_length=128, verbose_name="password")),
+                (
+                    "last_login",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="last login"
+                    ),
+                ),
+                (
+                    "is_superuser",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Designates that this user has all permissions without explicitly assigning them.",
+                        verbose_name="superuser status",
+                    ),
+                ),
+                (
+                    "username",
+                    models.CharField(
+                        error_messages={
+                            "unique": "A user with that username already exists."
+                        },
+                        help_text="Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
+                        max_length=150,
+                        unique=True,
+                        validators=[
+                            django.contrib.auth.validators.UnicodeUsernameValidator()
+                        ],
+                        verbose_name="username",
+                    ),
+                ),
+                (
+                    "first_name",
+                    models.CharField(
+                        blank=True, max_length=150, verbose_name="first name"
+                    ),
+                ),
+                (
+                    "last_name",
+                    models.CharField(
+                        blank=True, max_length=150, verbose_name="last name"
+                    ),
+                ),
+                (
+                    "email",
+                    models.EmailField(
+                        blank=True, max_length=254, verbose_name="email address"
+                    ),
+                ),
+                (
+                    "is_staff",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Designates whether the user can log into this admin site.",
+                        verbose_name="staff status",
+                    ),
+                ),
+                (
+                    "is_active",
+                    models.BooleanField(
+                        default=True,
+                        help_text="Designates whether this user should be treated as active. Unselect this instead of deleting accounts.",
+                        verbose_name="active",
+                    ),
+                ),
+                (
+                    "date_joined",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="date joined"
+                    ),
+                ),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                (
+                    "groups",
+                    models.ManyToManyField(
+                        blank=True,
+                        help_text="The groups this user belongs to. A user will get all permissions granted to each of their groups.",
+                        related_name="user_set",
+                        related_query_name="user",
+                        to="auth.group",
+                        verbose_name="groups",
+                    ),
+                ),
+                (
+                    "user_permissions",
+                    models.ManyToManyField(
+                        blank=True,
+                        help_text="Specific permissions for this user.",
+                        related_name="user_set",
+                        related_query_name="user",
+                        to="auth.permission",
+                        verbose_name="user permissions",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'user',
-                'verbose_name_plural': 'users',
-                'abstract': False,
+                "verbose_name": "user",
+                "verbose_name_plural": "users",
+                "abstract": False,
             },
             managers=[
-                ('objects', django.contrib.auth.models.UserManager()),
+                ("objects", django.contrib.auth.models.UserManager()),
             ],
         ),
         migrations.CreateModel(
-            name='Application',
+            name="Application",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('status', models.CharField(choices=[('Preparing', 'قيد التجهيز'), ('Submitted', 'تم الإرسال'), ('In Review', 'قيد المراجعة'), ('Accepted', 'مقبول'), ('Rejected', 'مرفوض')], default='Preparing', max_length=50, verbose_name='حالة الطلب')),
-                ('custom_deadline', models.DateField(blank=True, null=True, verbose_name='تاريخ الاستحقاق الشخصي')),
-                ('notes', models.TextField(blank=True, null=True, verbose_name='ملاحظات شخصية')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='applications', to=settings.AUTH_USER_MODEL, verbose_name='الطالب')),
-                ('program', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='applications', to='core.program', verbose_name='البرنامج الدراسي')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("Preparing", "قيد التجهيز"),
+                            ("Submitted", "تم الإرسال"),
+                            ("In Review", "قيد المراجعة"),
+                            ("Accepted", "مقبول"),
+                            ("Rejected", "مرفوض"),
+                        ],
+                        default="Preparing",
+                        max_length=50,
+                        verbose_name="حالة الطلب",
+                    ),
+                ),
+                (
+                    "custom_deadline",
+                    models.DateField(
+                        blank=True, null=True, verbose_name="تاريخ الاستحقاق الشخصي"
+                    ),
+                ),
+                (
+                    "notes",
+                    models.TextField(
+                        blank=True, null=True, verbose_name="ملاحظات شخصية"
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="applications",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="الطالب",
+                    ),
+                ),
+                (
+                    "program",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="applications",
+                        to="core.program",
+                        verbose_name="البرنامج الدراسي",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Document',
+            name="Document",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('file_name', models.CharField(max_length=255, verbose_name='اسم الملف')),
-                ('doc_type', models.CharField(choices=[('CV', 'سيرة ذاتية'), ('Motivation Letter', 'رسالة دوافع'), ('Transcript', 'كشف درجات'), ('Passport', 'جواز سفر'), ('Other', 'أخرى')], max_length=50, verbose_name='نوع الملف')),
-                ('file', models.FileField(upload_to='application_docs/%Y/%m/%d/', verbose_name='الملف المرفوع')),
-                ('uploaded_at', models.DateTimeField(auto_now_add=True)),
-                ('application', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='documents', to='core.application', verbose_name='طلب التقديم')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "file_name",
+                    models.CharField(max_length=255, verbose_name="اسم الملف"),
+                ),
+                (
+                    "doc_type",
+                    models.CharField(
+                        choices=[
+                            ("CV", "سيرة ذاتية"),
+                            ("Motivation Letter", "رسالة دوافع"),
+                            ("Transcript", "كشف درجات"),
+                            ("Passport", "جواز سفر"),
+                            ("Other", "أخرى"),
+                        ],
+                        max_length=50,
+                        verbose_name="نوع الملف",
+                    ),
+                ),
+                (
+                    "file",
+                    models.FileField(
+                        upload_to="application_docs/%Y/%m/%d/",
+                        verbose_name="الملف المرفوع",
+                    ),
+                ),
+                ("uploaded_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "application",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="documents",
+                        to="core.application",
+                        verbose_name="طلب التقديم",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Requirement',
+            name="Requirement",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('req_type', models.CharField(choices=[('GPA', 'المعدل التراكمي'), ('Language', 'اختبار لغة (IELTS/TOEFL)'), ('Test', 'اختبار قبول (GRE/GMAT)'), ('Experience', 'خبرة عمل'), ('Other', 'أخرى')], max_length=50, verbose_name='نوع الشرط')),
-                ('description', models.TextField(verbose_name='التفاصيل')),
-                ('program', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='requirements', to='core.program', verbose_name='البرنامج الدراسي')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "req_type",
+                    models.CharField(
+                        choices=[
+                            ("GPA", "المعدل التراكمي"),
+                            ("Language", "اختبار لغة (IELTS/TOEFL)"),
+                            ("Test", "اختبار قبول (GRE/GMAT)"),
+                            ("Experience", "خبرة عمل"),
+                            ("Other", "أخرى"),
+                        ],
+                        max_length=50,
+                        verbose_name="نوع الشرط",
+                    ),
+                ),
+                ("description", models.TextField(verbose_name="التفاصيل")),
+                (
+                    "program",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="requirements",
+                        to="core.program",
+                        verbose_name="البرنامج الدراسي",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='program',
-            name='university',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='programs', to='core.university', verbose_name='الجامعة'),
+            model_name="program",
+            name="university",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="programs",
+                to="core.university",
+                verbose_name="الجامعة",
+            ),
         ),
     ]
