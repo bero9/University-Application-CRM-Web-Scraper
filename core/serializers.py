@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import University, Program, Application
-
+from .models import University, Program, Application, Document
 class UniversitySerializer(serializers.ModelSerializer):
     class Meta:
         model = University
@@ -20,3 +20,9 @@ class ApplicationSerializer(serializers.ModelSerializer):
         fields = '__all__'
         # Security: Prevent users from manually modifying these fields
         read_only_fields = ['created_at', 'updated_at', 'user'] # We added 'user' here
+
+class DocumentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Document
+        fields = '__all__'
+        read_only_fields = ['uploaded_at']
