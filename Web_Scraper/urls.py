@@ -15,9 +15,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include # أضفنا include
+from django.urls import path, include
+# استدعاء واجهات JWT الجاهزة
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('core.urls')), # هذا سيجعل كل الروابط تبدأ بكلمة api
+    path('api/', include('core.urls')),
+    
+    # واجهات تسجيل الدخول وإنشاء الرموز (JWT)
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
