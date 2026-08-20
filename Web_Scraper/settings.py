@@ -127,3 +127,15 @@ MAILERS = {
     },
 }
 AUTH_USER_MODEL = "core.User"
+# Django REST Framework Settings
+REST_FRAMEWORK = {
+    # Default authentication classes (How users prove who they are)
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+    # Default permission classes (What they are allowed to do)
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}

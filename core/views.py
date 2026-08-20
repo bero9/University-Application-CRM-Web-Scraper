@@ -12,14 +12,28 @@ class ProgramListAPIView(generics.ListAPIView):
     queryset = Program.objects.all()
     serializer_class = ProgramSerializer
 
-# 3. Application CRUD Views (Create, Read)
-class ApplicationListCreateAPIView(generics.ListCreateAPIView):
-    # ListCreateAPIView allows GET (List) and POST (Create)
-    queryset = Application.objects.all()
-    serializer_class = ApplicationSerializer
+# 3. Application CRUD Views (Create, Read)# ... (Keep the imports and University/Program views as they are) ...
 
-# 4. Application Details Views (Read, Update, Delete)
-class ApplicationDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    # RetrieveUpdateDestroyAPIView allows GET (Read one), PUT/PATCH (Update), and DELETE
-    queryset = Application.objects.all()
+from rest_framework import permissions # Add this import at the top
+
+# 3. Create and Read View for Applications
+class ApplicationListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = ApplicationSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    # Override get_queryset to return ONLY applications owned by the logged-in user
+    def get_queryset(self):
+        return Application.objects.filter(user=self.request.user)
+
+    # Override perform_create to automatically attach the logged-in user to the application
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+# 4. Read, Update, and Delete View for a specific Application
+class ApplicationDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ApplicationSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    # Override get_queryset to ensure users can only access their own applications
+    def get_queryset(self):
+        return Application.objects.filter(user=self.request.user)

@@ -18,5 +18,5 @@ class ApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Application
         fields = '__all__'
-        # Prevent users from manually updating these fields
-        read_only_fields = ['created_at', 'updated_at']
+        # Security: Prevent users from manually modifying these fields
+        read_only_fields = ['created_at', 'updated_at', 'user'] # We added 'user' here
